@@ -1,0 +1,106 @@
+:root {
+  --bg: #f6f7f9;
+  --panel: #ffffff;
+  --ink: #1f2733;
+  --muted: #66707d;
+  --line: #e2e6eb;
+  --accent: #2f6fb2;
+  --accent-soft: #e8f0f8;
+  --warn: #b2622f;
+  --warn-soft: #faf0e6;
+  --ok: #3d7a4e;
+  --bad: #b23a3a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+}
+header {
+  background: #1d2b3a;
+  color: #fff;
+  padding: 20px 28px;
+}
+header h1 { margin: 0 0 4px; font-size: 20px; }
+header .sub { margin: 0; font-size: 13px; color: #b9c6d4; }
+main { max-width: 1180px; margin: 0 auto; padding: 18px 20px 40px; }
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+}
+.panel h2 { margin: 0 0 10px; font-size: 16px; }
+.muted { color: var(--muted); font-size: 13px; font-weight: normal; }
+.controls { display: flex; flex-wrap: wrap; gap: 14px 22px; margin-bottom: 10px; }
+.controls label { display: flex; flex-direction: column; font-size: 13px; gap: 4px; }
+.controls input, .controls select {
+  padding: 5px 8px; border: 1px solid var(--line); border-radius: 6px; font-size: 13px;
+}
+.slider-label output { font-weight: 600; color: var(--accent); }
+.methods { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; margin: 0 0 12px; }
+.methods legend { font-size: 13px; color: var(--muted); padding: 0 6px; }
+.methods label { margin-right: 16px; font-size: 13px; }
+.actions { display: flex; align-items: center; gap: 12px; }
+button {
+  padding: 7px 16px; border: 1px solid var(--line); border-radius: 7px;
+  background: #fff; cursor: pointer; font-size: 13px;
+}
+button:hover { background: #f0f3f7; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.primary:hover { background: #285e97; }
+button.small { padding: 3px 10px; font-size: 12px; }
+
+.badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 12px; }
+.badge {
+  font-size: 12px; padding: 3px 10px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent);
+}
+.badge.warn { background: var(--warn-soft); color: var(--warn); }
+
+table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 8px 0; }
+th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: right; }
+th { background: #f0f3f7; font-weight: 600; }
+td:first-child, th:first-child { text-align: left; }
+tr.clickable { cursor: pointer; }
+tr.clickable:hover td { background: var(--accent-soft); }
+.num-good { color: var(--ok); font-weight: 600; }
+.num-bad { color: var(--bad); font-weight: 600; }
+
+.notes { margin: 4px 0; padding-left: 20px; font-size: 13px; }
+.notes li { margin-bottom: 6px; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+.scroll-list { max-height: 320px; overflow-y: auto; }
+.list-item {
+  border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; margin-bottom: 8px;
+  display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 13px;
+}
+.list-item .meta { color: var(--muted); font-size: 12px; }
+.list-item .ops { display: flex; gap: 6px; flex-shrink: 0; }
+
+#customer-panel {
+  position: fixed; top: 0; right: 0; width: min(560px, 92vw); height: 100vh;
+  background: #fff; border-left: 1px solid var(--line); box-shadow: -6px 0 24px rgba(0,0,0,.12);
+  padding: 16px 18px; overflow-y: auto; z-index: 10;
+}
+.aside-head { display: flex; justify-content: space-between; align-items: center; }
+.aside-head h2 { margin: 0; font-size: 16px; }
+#cust-close { font-size: 20px; border: none; background: none; }
+.kv { display: grid; grid-template-columns: 130px 1fr; gap: 2px 10px; font-size: 13px; margin: 8px 0 12px; }
+.kv dt { color: var(--muted); }
+.kv dd { margin: 0; }
+.vis-yes { color: var(--ok); }
+.vis-no { color: var(--bad); }
+.tag { font-size: 11px; padding: 1px 7px; border-radius: 999px; background: #eef1f4; color: var(--muted); }
+
+#chart-wrap { margin: 6px 0 4px; overflow-x: auto; }
+.chart-title { font-size: 13px; color: var(--muted); margin: 4px 0; }
+footer { max-width: 1180px; margin: 0 auto; padding: 0 20px 30px; color: var(--muted); font-size: 12px; }
+.inline { font-size: 13px; }
+h3.sub { font-size: 14px; margin: 14px 0 4px; }

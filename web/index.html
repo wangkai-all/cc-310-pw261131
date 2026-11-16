@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>流失预警回测分析 · 虚构样本</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <h1>流失预警回测分析</h1>
+  <p class="sub">全部客户为本地虚构样本 · 每份回测绑定决策当时可见数据 · 预测质量与干预效果分开评估</p>
+</header>
+
+<main>
+  <!-- 配置面板 -->
+  <section class="panel" id="config-panel">
+    <h2>回测配置</h2>
+    <div class="controls">
+      <label>规则版本
+        <select id="cfg-rule"></select>
+      </label>
+      <label class="slider-label">阈值 <output id="cfg-threshold-out">0.50</output>
+        <input type="range" id="cfg-threshold" min="0.05" max="0.95" step="0.05" value="0.5">
+      </label>
+      <label>决策日
+        <input type="date" id="cfg-decision" value="2026-08-01" min="2025-06-01" max="2026-09-15">
+      </label>
+      <label>观察窗(天)
+        <input type="number" id="cfg-horizon" value="60" min="30" max="120" step="15">
+      </label>
+      <label>结果宽限(天)
+        <input type="number" id="cfg-grace" value="45" min="0" max="120" step="5">
+      </label>
+    </div>
+    <fieldset class="methods">
+      <legend>评估方法</legend>
+      <label><input type="checkbox" id="m-naive" checked> 朴素全样本(对照)</label>
+      <label><input type="checkbox" id="m-noint" checked> 未干预样本(预测质量)</label>
+      <label><input type="checkbox" id="m-holdout" checked> 时间留出</label>
+      <label><input type="checkbox" id="m-strat" checked> 分层对照</label>
+    </fieldset>
+    <div class="actions">
+      <button id="btn-run" class="primary">运行回测</button>
+      <span id="run-status" class="muted"></span>
+    </div>
+  </section>
+
+  <!-- 结果区 -->
+  <section id="results" hidden>
+    <section class="panel">
+      <h2>结果概览 <span id="result-meta" class="muted"></span></h2>
+      <p id="period-line" class="muted"></p>
+      <div id="counts-line" class="badges"></div>
+      <div id="chart-wrap"></div>
+      <div id="metrics-tables"></div>
+    </section>
+
+    <section class="panel" id="strat-panel" hidden>
+      <h2>分层对照(被预警客户 · 描述性,非因果)</h2>
+      <div id="strat-table"></div>
+    </section>
+
+    <section class="panel">
+      <h2>偏差与口径说明</h2>
+      <ul id="bias-notes" class="notes"></ul>
+    </section>
+
+    <section class="panel">
+      <h2>误报检视</h2>
+      <p class="muted">点击行查看该客户在决策时点的完整证据(可见/不可见分列)。</p>
+      <label class="inline"><input type="checkbox" id="fp-noint"> 仅看未干预样本</label>
+      <div id="fp-table"></div>
+    </section>
+
+    <section class="panel">
+      <h2>保存为报告</h2>
+      <div class="controls">
+        <label>报告名 <input type="text" id="report-name" placeholder="例:v2 阈值0.5 @2026-08-01"></label>
+        <label>备注 <input type="text" id="report-notes" placeholder="结论与口径说明"></label>
+      </div>
+      <button id="btn-save-report">保存当前结果</button>
+      <span id="report-status" class="muted"></span>
+    </section>
+  </section>
+
+  <!-- 客户证据侧栏 -->
+  <aside id="customer-panel" hidden>
+    <div class="aside-head">
+      <h2 id="cust-title">客户证据</h2>
+      <button id="cust-close" aria-label="关闭">×</button>
+    </div>
+    <div id="cust-body"></div>
+  </aside>
+
+  <!-- 历史与报告 -->
+  <div class="two-col">
+    <section class="panel">
+      <h2>回测运行历史(版本与恢复)</h2>
+      <div id="runs-list" class="scroll-list"></div>
+    </section>
+    <section class="panel">
+      <h2>已保存报告</h2>
+      <div id="reports-list" class="scroll-list"></div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <p>方法说明:naive_all 把被干预客户的后续表现直接计入,仅作对照;no_intervention 近似预测质量但存在选择偏差;
+  分层对照为描述性对比,不能识别干预因果效果;时间留出衡量跨期稳定性。所有回测只使用决策日已入库的数据。</p>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>
